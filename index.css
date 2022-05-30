@@ -24,8 +24,12 @@
     --tran-04: all 0.3s ease;
     --tran-05: all 0.3s ease;
 }
+html{
+  scroll-behavior: smooth;
+}
 
 body{
+  scroll-behavior: smooth;
     min-height: 100vh;
     background-color: var(--body-color);
     transition: var(--tran-05);
@@ -311,26 +315,12 @@ body.dark .mode .sun-moon i.moon{
     transition: var(--tran-04);
 }
 
-body.dark .switch::before{
+body.dark .header .switch::before{
     left: 20px;
 }
 
-.home{
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    /* width: calc(100% - 250px); */
-    background-color: var(--body-color);
-    transition: var(--tran-05);
-}
-.home .infoContainer{
-    margin: 100px 100px;
-    height: 60vh;
-    /* width: 125vh; */
-    display: flex;
-    justify-content: space-between;
-}
+
+
 .hello {
   font-size: 50px;
   color: var(--text-color);
@@ -368,37 +358,17 @@ body.dark .switch::before{
   cursor: pointer;
 }
 
-.buttons button:active {
-  /* background-color: #3e8e41; */
-  box-shadow: 0 5px rgb(177, 175, 175);
-  transform: translateY(4px);
-}
-.sidebar.close ~ .home{
-    left: 0;
-    height: 100vh;
-    /* width: calc(100% - 78px); */
-}
-body.dark .home .text{
-    color: var(--text-color);
-}
-.home .infoContainer img{
-    height: 60vh;
-    border-radius: 20px;
-}
-@media (max-width:991px){
-    .home .infoContainer{
-        flex-direction: column;
-        height: 89vh;
-        justify-content: flex-start;
-    
-    }
-    .devinfo{
-        width: 50vw;
-    }
 
-}
 
 /* -----------navbar---------------------- */
+.header {
+  display: none;
+}
+nav.sticky {
+  transition: 0.6s ease-in-out;
+  min-height: 8vh;
+  padding: 10px 0;
+}
 .navbar{
     display: flex;
       justify-content: space-around;
@@ -436,7 +406,7 @@ body.dark .home .text{
 .nav-links a {
   position: relative;
   list-style: none;
-  color: black;
+  color: var(--text-color);
   text-decoration: none;
   letter-spacing: 3px;
   font-weight: bold;
@@ -453,12 +423,31 @@ body.dark .home .text{
   body {
     overflow-x: hidden;
   }
+  .header{
+      position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10000;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 12vh;
+  background: var(--sidebar-color);
+  color: var(--text-color);
+  transition: 0.6s ease-in-out;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+  .header .logo{
+    width: 50%;
+  }
   .nav-links {
     position: absolute;
     right: 0px;
     height: 90vh;
     top: 12vh;
-    background-color: rgba(0, 0, 0, 0.6);
+    background: var(--sidebar-color);
+    color: var(--text-color);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -472,12 +461,73 @@ body.dark .home .text{
     opacity: 0;
     bottom: 12vh;
   }
-  .nav-links li.user-btn {
-    display: block;
+  .nav-links li .mode{
+    padding-top: 15px;
   }
+
   .burger {
     display: block;
   }
+  .header .img-text{
+    display: flex;
+    justify-content: space-evenly;
+
+  }
+  .header .logo img{
+width: 45px;
+    height: 45px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+ .header .mode .sun-moon i{
+    position: absolute;
+}
+.header .mode .sun-moon i.sun{
+    opacity: 0;
+}
+body.dark .header .mode .sun-moon i.sun{
+    opacity: 1;
+}
+body.dark .header .mode .sun-moon i.moon{
+    opacity: 0;
+}
+
+.header  .toggle-switch{
+    position: absolute;
+    right: 0;
+    height: 100%;
+    min-width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.header .toggle-switch .switch{
+    position: relative;
+    height: 22px;
+    width: 40px;
+    border-radius: 25px;
+    background-color: var(--toggle-color);
+    transition: var(--tran-05);
+}
+
+.header .nav li .mode .switch::before{
+    content: '';
+    position: absolute;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    background-color: var(--sidebar-color);
+    transition: var(--tran-04);
+}
+
+body.dark li .mode .switch::before{
+    left: 20px;
+}
 }
 .nav-active {
   transform: translateX(0%);
@@ -506,6 +556,7 @@ body.dark .home .text{
 .toggle .line3 {
   transform: rotate(45deg) translate(-5px, -5px);
 }
+/* -----------------------------home----------------------------- */
 
 .home{
 position: relative;
@@ -521,7 +572,7 @@ position: relative;
 }
 .home .infoContainer{
     margin: 100px auto;
-    height: 60vh;
+  
     /* width: 125vh; */
     display: flex;
     justify-content: space-between;
@@ -579,12 +630,7 @@ body.dark .home .text{
     height: 45vh;
     border-radius: 20px;
 }
-@media (max-width:991px){
-    .home .infoContainer{
-        flex-direction: column;
-        width: calc(100% - 78px);
-    }
-}
+
 .sidebar.close ~ .projects{
   width: 100%;
   padding:0 50px;
@@ -702,5 +748,48 @@ padding:0 50px;
 .box span.button:hover {
   background: #e2e2e2;
   color: white;
+}
+
+@media (max-width:991px){
+  .home{
+    padding: 0px;
+    height: 100%;
+  }
+  .sidebar.close ~.home{
+    padding: 20px;
+    top: 12vh;
+  }
+    .home .infoContainer{
+        flex-direction: column;
+        margin: 0px;
+    }
+    .home .infoContainer img{
+      width: 50%;
+      margin-top: 20px;
+    }
+    .projects h1{
+      font-size: 3rem;
+    }
+    .projects{
+      padding: 10px ;
+    }
+    .sidebar.close ~ .projects {
+      padding: 10px;
+      position: relative;
+    top: 12vh;
+
+    }
+    .sidebar.close ~ .blogs {
+      padding: 10px;
+      position: relative;
+    top: 12vh;
+
+    }
+    .blogs{
+      padding: 10px;
+    }
+    .blogs h1{
+      font-size: 3rem;
+    }
 }
 
